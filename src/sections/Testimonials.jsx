@@ -1,11 +1,27 @@
+import { useEffect, useState } from 'react';
 import Container from "../components/common/Container";
 import SectionWrapper from "../components/layout/SectionWrapper";
 import MotionWrap from "../components/core/MotionWrap";
-import { testimonials, clients } from "../data/testimonials.js";
-import { useState } from 'react';
+import axiosClient from '../api/axiosClient';
+
+
+const ASSET_URL =
+  import.meta.env.VITE_ASSET_BASE_URL || "http://localhost:5000";
 
 export default function Testimonials() {
+  const [testimonials, setTestimonials] = useState([]);
+  const [clients, setClients] = useState([]);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  useEffect(() => {
+    axiosClient
+      .get('/clients')
+      .then((res) => {
+        setTestimonials(res.data);
+        setClients(res.data); // reuse same data for logos
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <SectionWrapper id="testimonials">
@@ -24,7 +40,7 @@ export default function Testimonials() {
         {/* Testimonial Cards */}
         <div className="grid md:grid-cols-2 gap-8 mb-20">
           {testimonials.map((testimonial, index) => (
-            <MotionWrap key={testimonial.id} delay={0.2 + index * 0.1}>
+            <MotionWrap key={testimonial._id} delay={0.2 + index * 0.1}>
               <div
                 className={`p-8 rounded-2xl border transition-all duration-300 cursor-pointer ${
                   activeTestimonial === index
@@ -47,21 +63,21 @@ export default function Testimonials() {
                 </div>
 
                 <blockquote className="text-gray-300 leading-relaxed mb-6">
-                  "{testimonial.quote}"
+                  "{testimonial.message}"
                 </blockquote>
 
                 <div className="flex items-center gap-4">
                   <img
-                    src={testimonial.avatar}
-                    alt={testimonial.author}
+                    src={`${ASSET_URL}/uploads/clients/${testimonial.avatar}`}
+                    alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
                   <div>
                     <div className="font-semibold text-white">
-                      {testimonial.author}
+                      {testimonial.name}
                     </div>
                     <div className="text-sm text-gray-400">
-                      {testimonial.position} at {testimonial.company}
+                      {testimonial.role} at {testimonial.company}
                     </div>
                   </div>
                 </div>
@@ -78,24 +94,23 @@ export default function Testimonials() {
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
               {clients.map((client, index) => (
-                <MotionWrap key={client.name} delay={0.6 + index * 0.05}>
-                  <a
-                    href={client.url}
+                <MotionWrap key={client._id} delay={0.6 + index * 0.05}>
+                  <div
                     className="group flex items-center justify-center p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-emerald-500/30 transition-all duration-300"
                   >
                     <img
-                      src={client.logo}
-                      alt={client.name}
+                      src={`${ASSET_URL}/uploads/clients/${client.avatar}`}
+                      alt={client.company || client.name}
                       className="h-8 w-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
                     />
-                  </a>
+                  </div>
                 </MotionWrap>
               ))}
             </div>
           </div>
         </MotionWrap>
 
-        {/* Call to Action */}
+        {/* CTA (UNCHANGED) */}
         <MotionWrap delay={0.8}>
           <div className="text-center">
             <div className="inline-block p-8 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20">

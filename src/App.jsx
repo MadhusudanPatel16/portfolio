@@ -1,7 +1,8 @@
 import Header from "./components/layout/Header";
 import ProfileSection from "./components/ui/ProfileSection";
 import About from "./sections/About";
-import TechSkillsGrid from "./components/ui/TechSkillsGrid";
+import JourneyTimeline from "./components/ui/JourneyTimeline";
+import TechSkillsCompact from "./components/ui/TechSkillsCompact";
 import Projects from "./sections/Projects";
 // import CaseStudies from "./sections/CaseStudies";
 import Testimonials from "./sections/Testimonials";
@@ -13,7 +14,8 @@ export default function App() {
       <Header />
       <ProfileSection />
       <About />
-      <TechSkillsGrid />
+      <JourneyTimeline />
+      <TechSkillsCompact />
       <Projects />
       {/* <CaseStudies /> */}
       <Testimonials />

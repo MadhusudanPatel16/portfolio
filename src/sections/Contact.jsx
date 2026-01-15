@@ -2,15 +2,24 @@ import Container from "../components/common/Container";
 import SectionWrapper from "../components/layout/SectionWrapper";
 import MotionWrap from "../components/core/MotionWrap";
 import { contactInfo } from "../data/contact.js";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axiosClient from "../api/axiosClient";
 
 export default function Contact() {
+  const [profile, setProfile] = useState({});
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
+
+    useEffect(() => {
+      axiosClient
+        .get('/profile')
+        .then((res) => setProfile(res.data))
+        .catch(console.error);
+    }, []);
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -38,10 +47,10 @@ export default function Contact() {
         <MotionWrap delay={0.1}>
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-              {contactInfo.title}
+              {profile.title}
             </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              {contactInfo.subtitle}
+              {profile.subtitle}
             </p>
           </div>
         </MotionWrap>
@@ -156,8 +165,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <div className="font-medium text-white mb-1">Email</div>
-                      <a href={`mailto:${contactInfo.email}`} className="text-gray-400 hover:text-emerald-400 transition-colors">
-                        {contactInfo.email}
+                      <a href={`mailto:${profile.email}`} className="text-gray-400 hover:text-emerald-400 transition-colors">
+                        {profile.email}
                       </a>
                     </div>
                   </div>
@@ -170,8 +179,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <div className="font-medium text-white mb-1">Phone</div>
-                      <a href={`tel:${contactInfo.phone}`} className="text-gray-400 hover:text-emerald-400 transition-colors">
-                        {contactInfo.phone}
+                      <a href={`tel:${profile.phone}`} className="text-gray-400 hover:text-emerald-400 transition-colors">
+                        {profile.phone}
                       </a>
                     </div>
                   </div>
@@ -186,7 +195,7 @@ export default function Contact() {
                     <div>
                       <div className="font-medium text-white mb-1">Location</div>
                       <div className="text-gray-400">
-                        {contactInfo.location}
+                        {profile.location}
                       </div>
                     </div>
                   </div>
