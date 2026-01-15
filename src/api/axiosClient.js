@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:5000/api", // change after deploy
+  baseURL: "https://portfolio-backend-a2oq.onrender.com/api",
 });
 
 export default axiosClient;
