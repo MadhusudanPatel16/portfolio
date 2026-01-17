@@ -8,14 +8,34 @@ export default function ProfileSection() {
   const [profile, setProfile] = useState(null);
   const [resumeUrl, setResumeUrl] = useState(null);
 
-  const sliderImages = profile?.background_image 
-  ? [profile.background_image]
-  : [
-    "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&h=800&fit=crop",
-    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=800&fit=crop",
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
-    "https://images.unsplash.com/photo-1559028006-8488655979d7?w=1200&h=800&fit=crop",
-  ];
+  const sliderImages = profile?.background_image
+    ? [profile.background_image]
+    : [
+      "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1559028006-8488655979d7?w=1200&h=800&fit=crop",
+    ];
+
+  const downloadResume = async () => {
+    try {
+      const res = await axiosClient.get("/resume/download", {
+        responseType: "blob",
+      });
+
+      const blob = new Blob([res.data]);
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Madhusudan_Patel_Resume.pdf";
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Resume download failed", err);
+    }
+  };
 
   /* ---------------- Mouse movement (optional visual effects) ---------------- */
   useEffect(() => {
@@ -184,17 +204,15 @@ export default function ProfileSection() {
 
           {/* Resume Download */}
           {resumeUrl && (
-            <motion.a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={downloadResume}
               className="px-8 py-4 rounded-full bg-white/10 border border-white/30 text-white font-semibold text-lg hover:bg-emerald-500 hover:text-black transition"
               variants={buttonVariants}
               whileHover="hover"
               whileTap={{ scale: 0.95 }}
             >
               Download Resume
-            </motion.a>
+            </motion.button>
           )}
         </motion.div>
       </motion.div>
