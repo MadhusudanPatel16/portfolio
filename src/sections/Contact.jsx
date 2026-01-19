@@ -28,18 +28,21 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  await axiosClient.post("/contact", formData);
+
+  alert("Message sent successfully");
+
+  setFormData({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+};
+
 
   return (
     <SectionWrapper id="contact">
