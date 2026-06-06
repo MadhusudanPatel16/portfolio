@@ -16,6 +16,7 @@ export default function JourneyTimeline() {
   const [index, setIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
 
   /* ===================== FETCH DATA ===================== */
   useEffect(() => {
@@ -35,14 +36,14 @@ export default function JourneyTimeline() {
 
   /* ===================== AUTO PLAY ===================== */
   useEffect(() => {
-    if (!autoPlay || journeyData.length === 0) return;
+    if (!autoPlay || isHovered || journeyData.length === 0) return;
 
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % journeyData.length);
     }, 4000);
 
     return () => clearInterval(timer);
-  }, [autoPlay, journeyData.length]);
+  }, [autoPlay, isHovered, journeyData.length]);
 
   if (loading || !current) return null;
 
@@ -101,10 +102,18 @@ export default function JourneyTimeline() {
         </div>
 
         {/* MAIN LAYOUT */}
-        <div className="grid grid-cols-12 gap-10 items-start">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {/* TIMELINE DOTS */}
-          <div className="col-span-2 flex flex-col items-center relative">
-            <div className="absolute h-full w-[2px] bg-white/10" />
+          <div className="col-span-1 md:col-span-2 flex md:flex-col flex-row items-center justify-center md:justify-start gap-4 md:gap-0 relative mb-8 md:mb-0 pb-4 md:pb-0 overflow-x-auto md:overflow-x-visible w-full">
+            {/* Vertical line (desktop only) */}
+            <div className="hidden md:block absolute h-full w-[2px] bg-white/10 left-1/2 -translate-x-1/2" />
+            
+            {/* Horizontal line (mobile only) */}
+            <div className="md:hidden absolute w-full h-[2px] bg-white/10 left-0 right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
 
             {journeyData.map((item, i) => (
               <button
@@ -113,9 +122,9 @@ export default function JourneyTimeline() {
                   setIndex(i);
                   setAutoPlay(false);
                 }}
-                className={`z-10 mb-10 w-4 h-4 rounded-full transition-all ${
+                className={`z-10 md:mb-10 w-4 h-4 rounded-full transition-all flex-shrink-0 ${
                   i === index
-                    ? "bg-emerald-400 scale-125"
+                    ? "bg-emerald-400 scale-125 ring-4 ring-emerald-400/20"
                     : "bg-white/30 hover:bg-white/50"
                 }`}
               />
@@ -123,7 +132,7 @@ export default function JourneyTimeline() {
           </div>
 
           {/* FOCUSED CARD */}
-          <div className="col-span-10">
+          <div className="col-span-1 md:col-span-10 w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current._id}
@@ -132,7 +141,7 @@ export default function JourneyTimeline() {
                 exit={{ opacity: 0, x: -60 }}
                 transition={{ duration: 0.4 }}
               >
-                <GlassCard className="p-10 max-w-4xl">
+                <GlassCard className="p-6 md:p-10 max-w-4xl">
                   {/* HEADER */}
                   <div className="flex items-start justify-between mb-6">
                     <div>

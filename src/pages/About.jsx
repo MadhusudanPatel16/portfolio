@@ -128,7 +128,7 @@ export default function About() {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <MotionWrap delay={0.3}>
-            <div className="grid md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               {statsData.map((stat, index) => (
                 <motion.div
                   key={index}
@@ -155,8 +155,8 @@ export default function About() {
             <GlassCard className="p-8">
               <h2 className="text-3xl font-bold text-white mb-6">My Story</h2>
               
-              <div className="grid md:grid-cols-3 gap-8 items-center">
-                <div className="md:col-span-2 space-y-6 text-gray-300 leading-relaxed">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div className="md:col-span-2 space-y-6 text-gray-300 leading-relaxed order-last md:order-first">
                   <p>
                     My journey into software development began with a curiosity about how things work on the internet. 
                     What started as experimenting with HTML and CSS quickly evolved into a passion for creating 
@@ -177,7 +177,7 @@ export default function About() {
                   </p>
                 </div>
                 
-                <div className="text-center">
+                <div className="text-center order-first md:order-last mb-8 md:mb-0">
                   <img
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
                     alt="Working"
@@ -255,7 +255,7 @@ export default function About() {
             <h2 className="text-3xl font-bold text-white mb-12 text-center">Core Values</h2>
             
             <motion.div 
-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
               variants={staggerVariants}
               initial="hidden"
               whileInView="visible"
@@ -296,7 +296,7 @@ export default function About() {
           <MotionWrap delay={0.4}>
             <h2 className="text-3xl font-bold text-white mb-12 text-center">Development Philosophy</h2>
             
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {philosophyData.map((item, index) => {
                 const Icon = item.icon;
                 

@@ -21,8 +21,8 @@ export default function Header() {
     // { name: "Projects", href: "/projects", type: "link" },
     { name: "Testimonials", href: "#testimonials", type: "anchor" },
     { name: "Contact", href: "#contact", type: "anchor" },
-    { name: "Case Studies", href: "/case-studies", type: "link" },
-    { name: "Resume", href: "/resume", type: "link" },
+    // { name: "Case Studies", href: "/case-studies", type: "link" },
+    // { name: "Resume", href: "/resume", type: "link" },
   ];
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Header() {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = (scrollTop / docHeight) * 100;
-      
+
       setIsScrolled(scrollTop > 50);
       setScrollProgress(scrollPercent);
 
@@ -57,12 +57,12 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
-   useEffect(() => {
-      axiosClient
-        .get("/profile")
-        .then((res) => setProfile(res.data))
-        .catch(console.error);
-    }, []);
+  useEffect(() => {
+    axiosClient
+      .get("/profile")
+      .then((res) => setProfile(res.data))
+      .catch(console.error);
+  }, []);
 
   const getSectionId = (href) => href.replace('#', '');
 
@@ -90,11 +90,10 @@ export default function Header() {
   return (
     <>
       <motion.header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'backdrop-blur-lg bg-black/40 border-b border-white/10 shadow-lg' 
-            : 'backdrop-blur-md bg-black/20 border-b border-white/5'
-        }`}
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
+          ? 'backdrop-blur-lg bg-black/40 border-b border-white/10 shadow-lg'
+          : 'backdrop-blur-md bg-black/20 border-b border-white/5'
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -102,13 +101,13 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
 
           {/* Logo */}
-          <motion.div 
+          <motion.div
             className="flex items-center gap-3 font-bold text-xl bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"
             whileHover={{ scale: 1.05 }}
           >
             {profile?.avatar && (
-              <img 
-                src={profile.avatar} 
+              <img
+                src={profile.avatar}
                 alt={profile.name}
                 className="w-8 h-8 rounded-full object-cover border-2 border-emerald-400/50"
               />
@@ -134,11 +133,10 @@ export default function Header() {
                     >
                       <Link
                         to={item.href}
-                        className={`relative transition-colors duration-200 font-medium ${
-                          isActive 
-                            ? 'text-emerald-400' 
-                            : 'text-gray-300 hover:text-emerald-400'
-                        }`}
+                        className={`relative transition-colors duration-200 font-medium ${isActive
+                          ? 'text-emerald-400'
+                          : 'text-gray-300 hover:text-emerald-400'
+                          }`}
                       >
                         {item.name}
                       </Link>
@@ -152,11 +150,10 @@ export default function Header() {
                     >
                       <a
                         href={item.href}
-                        className={`relative transition-colors duration-200 font-medium ${
-                          isActive 
-                            ? 'text-emerald-400' 
-                            : 'text-gray-300 hover:text-emerald-400'
-                        }`}
+                        className={`relative transition-colors duration-200 font-medium ${isActive
+                          ? 'text-emerald-400'
+                          : 'text-gray-300 hover:text-emerald-400'
+                          }`}
                         onClick={() => handleClick(item)}
                       >
                         {item.name}
@@ -207,11 +204,10 @@ export default function Header() {
                         <Link
                           to={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className={`py-2 transition-colors duration-200 font-medium ${
-                            isActive 
-                              ? 'text-emerald-400' 
-                              : 'text-gray-300 hover:text-emerald-400'
-                          }`}
+                          className={`py-2 transition-colors duration-200 font-medium ${isActive
+                            ? 'text-emerald-400'
+                            : 'text-gray-300 hover:text-emerald-400'
+                            }`}
                         >
                           {item.name}
                         </Link>
@@ -219,11 +215,10 @@ export default function Header() {
                         <a
                           href={item.href}
                           onClick={() => handleClick(item)}
-                          className={`py-2 transition-colors duration-200 font-medium ${
-                            isActive 
-                              ? 'text-emerald-400' 
-                              : 'text-gray-300 hover:text-emerald-400'
-                          }`}
+                          className={`py-2 transition-colors duration-200 font-medium ${isActive
+                            ? 'text-emerald-400'
+                            : 'text-gray-300 hover:text-emerald-400'
+                            }`}
                         >
                           {item.name}
                         </a>
@@ -236,10 +231,10 @@ export default function Header() {
           )}
         </div>
       </motion.header>
-      
+
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-gray-800 z-50">
-        <motion.div 
+        <motion.div
           className="h-full bg-gradient-to-r from-violet-500 to-cyan-500"
           style={{ width: `${scrollProgress}%` }}
         />

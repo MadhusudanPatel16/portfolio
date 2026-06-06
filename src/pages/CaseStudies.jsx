@@ -239,7 +239,7 @@ export default function CaseStudies() {
                           <p className="text-gray-300 leading-relaxed">{study.overview}</p>
                         </div>
                         
-                        <div className="flex flex-col gap-2 mt-4 md:mt-0 md:ml-8">
+                        <div className="flex flex-row md:flex-col gap-4 md:gap-2 mt-4 md:mt-0 md:ml-8 flex-wrap">
                           <div className="flex items-center gap-2 text-sm text-gray-400">
                             <Clock className="w-4 h-4" />
                             {study.duration}
@@ -277,7 +277,7 @@ export default function CaseStudies() {
                       {/* Process */}
                       <div className="mb-8">
                         <h4 className="text-xl font-semibold text-white mb-4">Our Process</h4>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                           {study.process.map((step, stepIndex) => (
                             <div key={stepIndex} className="flex items-start gap-3">
                               <div className="w-2 h-2 rounded-full bg-violet-400 mt-2 flex-shrink-0" />
@@ -293,7 +293,7 @@ export default function CaseStudies() {
                           <Award className="w-5 h-5 text-yellow-400" />
                           Key Results
                         </h4>
-                        <div className="grid md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {study.results.map((result, resultIndex) => (
                             <div key={resultIndex} className="flex items-start gap-3">
                               <div className="w-2 h-2 rounded-full bg-green-400 mt-2 flex-shrink-0" />

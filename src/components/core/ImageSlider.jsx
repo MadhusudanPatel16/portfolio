@@ -26,6 +26,14 @@ export default function ImageSlider({ images, autoSlide = true, slideInterval = 
     exit: { opacity: 0, x: -100 }
   };
 
+  const getResponsiveSrcSet = (src) => {
+    if (src && src.includes("unsplash.com")) {
+      const base = src.split('?')[0];
+      return `${base}?w=600&h=1000&fit=crop 600w, ${base}?w=1200&h=800&fit=crop 1200w, ${base}?w=1920&h=1080&fit=crop 1920w`;
+    }
+    return undefined;
+  };
+
   return (
     <div className="relative w-full h-full overflow-hidden rounded-2xl">
       <AnimatePresence initial={false} mode="wait">
@@ -43,8 +51,10 @@ export default function ImageSlider({ images, autoSlide = true, slideInterval = 
         >
           <img
             src={images[currentIndex]}
+            srcSet={getResponsiveSrcSet(images[currentIndex])}
+            sizes="100vw"
             alt={`Slide ${currentIndex + 1}`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
         </motion.div>

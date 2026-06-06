@@ -249,7 +249,7 @@ export default function Resume() {
                       <div>
                         <h3 className="text-2xl font-semibold text-white mb-2">{exp.title}</h3>
                         <p className="text-lg text-violet-400 mb-2">{exp.company}</p>
-                        <div className="flex items-center gap-4 text-gray-400 text-sm">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-400 text-sm">
                           <div className="flex items-center gap-1">
                             <MapPin className="w-4 h-4" />
                             {exp.location}
@@ -321,7 +321,7 @@ export default function Resume() {
                       <div>
                         <h3 className="text-2xl font-semibold text-white mb-2">{edu.degree}</h3>
                         <p className="text-lg text-violet-400 mb-2">{edu.institution}</p>
-                        <div className="flex items-center gap-4 text-gray-400 text-sm">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-400 text-sm">
                           <div className="flex items-center gap-1">
                             <MapPin className="w-4 h-4" />
                             {edu.location}
@@ -366,7 +366,7 @@ export default function Resume() {
           <MotionWrap delay={0.6}>
             <h2 className="text-3xl font-bold text-white mb-12 text-center">Technical Skills</h2>
             
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {Object.entries(skillsData).map(([category, skills]) => (
                 <GlassCard key={category} className="p-6">
                   <h3 className="text-xl font-semibold text-white mb-6">{category}</h3>

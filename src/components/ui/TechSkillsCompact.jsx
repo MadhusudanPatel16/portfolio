@@ -112,7 +112,7 @@ export default function TechSkillsCompact() {
 
         {/* SKILLS GRID */}
         <MotionWrap delay={0.4}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {skillsData[activeCategory]
               .sort((a, b) => a.order - b.order)
               .map((skill, index) => (
@@ -133,61 +133,45 @@ export default function TechSkillsCompact() {
                   }}
                   className="group"
                 >
-                  <GlassCard className="p-6 text-center hover:scale-[1.02] transition-all duration-300 cursor-pointer">
+                  <GlassCard className="p-4 sm:p-6 flex flex-row sm:flex-col items-center sm:text-center gap-4 sm:gap-0 hover:scale-[1.02] transition-all duration-300 cursor-pointer">
 
                     {/* ✅ LOGO ADDED (ONLY VISUAL CHANGE) */}
                     <img
                       src={`${skill.logo}`}
                       alt={skill.name}
-                      className="w-12 h-12 mx-auto mb-4 object-contain"
+                      className="w-12 h-12 object-contain mb-0 sm:mb-4 flex-shrink-0"
                     />
 
-                    <h3 className="text-lg font-semibold text-white mb-4 group-hover:text-violet-300 transition-colors">
-                      {skill.name}
-                      {hoveredSkill === skill._id && (
-                        <span className="ml-2 text-xs text-green-400">✓</span>
-                      )}
-                    </h3>
+                    <div className="flex-1 w-full min-w-0">
+                      <h3 className="text-lg font-semibold text-white mb-1 sm:mb-4 group-hover:text-violet-300 transition-colors truncate">
+                        {skill.name}
+                        {hoveredSkill === skill._id && (
+                          <span className="ml-2 text-xs text-green-400">✓</span>
+                        )}
+                      </h3>
 
-                    {/* Progress Bar */}
-                    <div className="relative h-3 bg-gray-700/50 rounded-full overflow-hidden mb-2">
-                      <motion.div
-                        key={animatedSkill === skill._id ? "animate" : "static"}
-                        className="h-full bg-gradient-to-r from-violet-500 to-cyan-500"
-                        initial={{ width: "0%" }}
-                        animate={{ width: `${skill.proficiency}%` }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                      />
+                      {/* Progress Bar */}
+                      <div className="relative h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden mb-2">
+                        <motion.div
+                          key={animatedSkill === skill._id ? "animate" : "static"}
+                          className="h-full bg-gradient-to-r from-violet-500 to-cyan-500"
+                          initial={{ width: "0%" }}
+                          animate={{ width: `${skill.proficiency}%` }}
+                          transition={{ duration: 0.8, ease: "easeOut" }}
+                        />
+                      </div>
+
+                      {/* Percentage & Label wrapper */}
+                      <div className="flex justify-between sm:block items-center sm:items-stretch">
+                        <div className="text-xl sm:text-2xl font-bold text-white leading-none">
+                          {skill.proficiency}%
+                        </div>
+
+                        <p className="text-xs text-gray-400 transition-all duration-300 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:-translate-y-2 sm:group-hover:translate-y-0 min-h-[16px]">
+                          Proficiency Level
+                        </p>
+                      </div>
                     </div>
-
-                    {/* Percentage */}
-                    <div
-                      className="text-2xl font-bold text-white"
-                      style={{
-                        opacity: hoveredSkill === skill._id ? 1 : 1,
-                        transform:
-                          hoveredSkill === skill._id ? "scale(1)" : "scale(1)",
-                        minHeight: "32px"
-                      }}
-                    >
-                      {skill.proficiency}%
-                    </div>
-
-
-                    <p
-                      className="text-xs text-gray-400"
-                      style={{
-                        opacity: hoveredSkill === skill._id ? 1 : 0,
-                        transform:
-                          hoveredSkill === skill._id
-                            ? "translateY(0)"
-                            : "translateY(-8px)",
-                        transition: "all 0.3s ease-out",
-                        minHeight: "16px"
-                      }}
-                    >
-                      Proficiency Level
-                    </p>
                   </GlassCard>
                 </motion.div>
               ))}

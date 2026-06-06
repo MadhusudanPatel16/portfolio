@@ -69,9 +69,9 @@ export default function ProjectDetail() {
             <ArrowLeft size={16} /> Back to Projects
           </Link>
 
-          <div className="flex flex-col md:flex-row gap-8">
+          <div className="flex flex-col lg:flex-row gap-8">
             <div className="flex-1">
-              <div className="flex items-center gap-4 mb-4">
+              <div className="flex flex-wrap items-center gap-4 mb-4">
                 <span className="px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-sm">
                   {project.category}
                 </span>
@@ -98,7 +98,7 @@ export default function ProjectDetail() {
               </div>
             </div>
 
-            <GlassCard className="p-6 w-full md:w-96">
+            <GlassCard className="p-6 w-full lg:w-96">
               <h3 className="font-semibold mb-4">Tech Stack</h3>
               <div className="flex flex-wrap gap-2">
                 {project.tech_stack.map((tech, i) => (

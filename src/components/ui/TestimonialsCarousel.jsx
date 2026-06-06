@@ -179,7 +179,7 @@ export default function TestimonialsCarousel() {
                   {/* AVATAR + STATS */}
                   <div className="text-center">
                     <motion.div
-                      className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 p-1"
+                      className="hidden md:block w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 p-1"
                       whileHover={{ scale: 1.05 }}
                     >
                       <div className="w-full h-full rounded-full bg-gray-900 flex items-center justify-center overflow-hidden">
@@ -197,7 +197,7 @@ export default function TestimonialsCarousel() {
                       </div>
                     </motion.div>
 
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:space-y-4">
                       <div className="p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
                         <Users className="w-6 h-6 text-violet-400 mx-auto mb-2" />
                         <p className="text-2xl font-bold text-white">
